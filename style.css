@@ -2,24 +2,48 @@
 
 /* ================ROOTS================= */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 :root{
-  font-size: 62.5%;
-  --primary-color-1: hsl(170, 100%, 26%);
-  --primary-color-2: hsl(152, 23%, 89%);
-  --primary-color-3: #fffaf0;
+  font-size: 62.5%; /* 1rem = 10px */
+  --hue: 1; /* base = 165 */
+  --primary-color-1: hsl(var(--hue), 100%, 26%);
+  --primary-color-2: hsl(calc(var(--hue) - 22), 23%, 89%);
+  --primary-color-3: hsl(40, 100%, 97%);
   --headline: hsl(210, 11%, 15%);
-  --secondary-color-2: #f7f9f9;
-  --secondary-color-3: hsl(170, 94%, 13%);
+  --secondary-color-2: hsl(calc(var(--hue) + 10) , 14%, 97%);
+  --secondary-color-3: hsl(var(--hue), 94%, 13%);
   --paragraph: hsl(210, 9%, 31%);
 
   --nav-height: 7.2rem;
 }
+/* ===============CUSTOM COLORS=============== */
+#services .card circle {
+  fill: var(--primary-color-2);
+}
 
+#navigation .logo path[fill*='#00856F'],
+#backToTopButton circle {
+  fill: var(--primary-color-1);
+}
+
+button.open-menu path[stroke*='#00856F'],
+#contact li path {
+  stroke: var(--primary-color-1);
+}
+
+body.menu-expanded #navigation .logo path,
+#navigation.scroll .logo path {
+  fill: white;
+}
+
+#navigation.scroll button.open-menu path[stroke*='#00856F'] {
+  stroke: white;
+}
 /* ===============BASE=============== */
 html{
   scroll-behavior: smooth;
@@ -33,7 +57,6 @@ body{
   font-family: 'DM Sans', sans-serif;
   font-size: 1.6rem;
   text-align: center;
-  min-width: 500px;
   overflow: overlay;
   background-color: var(--secondary-color-2);
 }
@@ -51,7 +74,7 @@ p{
   margin-bottom: 3.2rem;
 }
 .wrapper{
-  width: 37.5rem;
+  width: min(50rem, 100%);
   margin-inline: auto;
   padding-inline: 2.4rem;
 }
@@ -59,10 +82,40 @@ ul{
   list-style: none;
 }
 section{
-  padding: 10rem;
+  padding-block: 10rem;
 }
 img{
   max-width: 100%;
+}
+.button{
+  background-color: var(--primary-color-1);
+  color: white;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  
+  padding: 1.6rem 3.2rem;
+  width: fit-content;
+
+  margin-bottom: 6rem;
+  border: none;
+  border-radius: 4rem;
+
+  transition: 300ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+  text-decoration: none;
+}
+.button:hover{
+  background-color: var(--secondary-color-3);
+}
+.social-links{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3.2rem;
 }
 /* ==============NAVIGATION============== */
 nav {
@@ -73,6 +126,9 @@ nav {
   width: 100%;
   z-index: 100;
 }
+nav .menu{
+  position: fixed;
+}
 nav .wrapper{
   display: flex;
   align-items: center;
@@ -81,20 +137,19 @@ nav .wrapper{
 nav.scroll {
   background: var(--primary-color-1);
 }
-nav.scroll .logo path{
-  fill: white;
-}
-nav.scroll button path{
-  stroke: white;
-}
+
 nav button {
   background: none;
   border: none;
   cursor: pointer;
 }
+nav button.close-menu{
+  position: fixed;
+}
 /* ===============MENU================  */
 .menu{
   transform: translateY(100%);
+  position: fixed;
 }
 .menu, 
 .close-menu, 
@@ -114,7 +169,7 @@ body.menu-expanded > :not(nav){
   visibility: hidden;
 }
 body.menu-expanded .menu{
-  position: fixed;
+
   top: 0;
   left: 0;
   background-color: var(--primary-color-1);
@@ -154,13 +209,15 @@ body.menu-expanded .menu{
   padding: 16px 32px;
   margin-top: 4.8rem;
   margin-bottom: 8rem;
+  border: 1px solid white;
 }
-.social-links{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 3.2rem;
+.menu .button:hover{
+  background-color: var(--primary-color-1);
+  color: white;
+  border: 1px solid white;
+  filter: brightness(1.1);
 }
+
 body.menu-expanded .logo,
 body.menu-expanded nav button{
   position: relative;
@@ -188,31 +245,14 @@ body.menu-expanded button path{
 #home {
   padding-top: calc(4.1rem + var(--nav-height));
 }
+#home .button{
+  margin-inline: auto;
+
+}
 #home h4{
   font-size: 1.4rem;
   color: var(--primary-color-1);
   margin-bottom: 1.6rem;
-}
-#home button{
-  background-color: var(--primary-color-1);
-  color: white;
-  font-size: 1.4rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  
-  width: 26.3rem;
-  height: 6.2rem;
-
-  margin-bottom: 6rem;
-  border: none;
-  border-radius: 4rem;
-  margin-right: auto;
-  margin-left: auto;
-  
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.6rem;
 }
 #home img{
   width: 26.4rem;
@@ -227,7 +267,7 @@ body.menu-expanded button path{
   background-color: var(--primary-color-3);
   border: 1px solid var(--primary-color-2);
   border-radius: 0.6rem;
-  width: 32.7rem;
+  width: 100%;
   padding-block: 4rem;
   margin-inline: auto;
   display: flex;
@@ -312,6 +352,208 @@ body.menu-expanded button path{
   margin-bottom: 6rem;
   color: var(--paragraph);
 }
+
+/* ===============CONTACT================ */
+#contact {
+  text-align: left;
+}
+#contact .button{
+  margin-top: 3.2rem;
+}
+#contact header{
+  margin-bottom: 3.2rem;
+}
+#contact ul{
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+#contact ul li{
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+/* ===============FOOTER================ */
+footer{
+  background-color: var(--primary-color-1);
+  padding-block: 6rem;
+  text-align: left;
+}
+footer .social-links{
+  justify-content: flex-start;
+}
+footer p{
+  color: var(--primary-color-3);
+  line-height: 2;
+}
+
+footer .logo{
+  display: inline-block;
+  margin-bottom: 2.4rem;
+}
+footer .logo svg{
+  width: 23.6rem;
+  height: 3.1rem;
+}
+footer .logo path{
+  fill: white;
+}
+
+/* ===============BACK TO TOP================ */
+#backToTopButton{
+  position: fixed;
+  bottom: 1rem;
+  right: 2.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: 200ms;
+  transform: translateY(100%);
+}
+#backToTopButton.show{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* ===============DESKTOP================ */
+@media (min-width: 102.4rem) {
+
+  /* ===============RESET=============== */
+  nav#navigation .wrapper * {
+    margin: 0;
+    padding: 0;
+    visibility: initial;
+    display: initial;
+    opacity: initial;
+    flex-direction: initial;
+    position: initial;
+    transform: initial;
+    color: initial;
+    background-color: initial;
+    border: initial;
+    font-weight: initial;
+  }
+  nav#navigation .close-menu,
+  nav#navigation .open-menu,
+  nav#navigation .social-links{
+    display: none;
+  }
+
+  /* ===============BASE=============== */
+  .wrapper {
+    width: min(112rem, 100%);
+    display: grid;
+    
+  }
+
+  /* ===============NAVIGATION=============== */
+  nav#navigation .menu{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60%;
+  }
+  nav#navigation .menu ul:nth-child(1){
+    display: flex;
+    gap: 3.2rem;
+  }
+  nav#navigation .menu ul li a{
+    text-decoration: none;
+    opacity: 0.7;
+    color: var(--primary-color-1);
+    font-size: 1.6rem;
+  }
+  nav#navigation .menu li{
+    transition: opacity 0.4s;
+  }
+  nav#navigation .menu li a:hover{
+    opacity: 1;
+    font-weight: 700;
+  }
+  nav#navigation .menu li a::after{
+    content: '';
+    width: 0%;
+    height: 2px;
+    background-color: var(--primary-color-1);
+    position: relative;
+    bottom: -1.75rem;
+    left: -1.3rem;
+    transition: width 0.2s;
+    display: block;
+  }
+  nav#navigation .menu li a:hover::after{
+    padding-inline: 1.3rem;
+    width: 100%;
+  }
+  nav#navigation.scroll .menu li a::after{
+    background-color: var(--secondary-color-2);
+  }
+  nav#navigation.scroll .menu li a:hover{
+    opacity: 1;
+  }
+  nav#navigation .menu a.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 2.4rem;
+    border: 1px solid var(--primary-color-1);
+    border-radius: 4rem;
+    color: var(--primary-color-1);
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    text-transform: uppercase;
+  } 
+  nav#navigation .menu a.button:hover{
+    background-color: var(--primary-color-1);
+    color: white;
+    border: 1px solid white;
+    filter: brightness(1.1);
+  }
+  nav#navigation.scroll .menu ul li a{
+    background-color: var(--primary-color-1);
+    color: var(--secondary-color-2);
+    opacity: 0.6;
+  }
+
+  nav#navigation.scroll .menu a.button{
+    border: 1px solid white;
+    color: white;
+    background-color: var(--primary-color-1);
+  } 
+  nav#navigation.scroll .menu a.button:hover{
+    background-color: var(--primary-color-2);
+    color: var(--primary-color-1);
+    border: 1px solid white;
+    filter: brightness(1.1);
+  }
+
+  /* ===============HOME=============== */
+  #home .wrapper {
+    flex-direction: row;
+  }
+
+  /* ===============HOME-CARDS=============== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
 
 /* ===============SCROLLBAR================ */
 ::-webkit-scrollbar{
