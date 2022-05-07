@@ -417,7 +417,7 @@ footer .logo path{
 }
 
 /* ===============DESKTOP================ */
-@media (min-width: 102.4rem) {
+@media (min-width: 80.4rem) {
 
   /* ===============RESET=============== */
   nav#navigation .wrapper * {
